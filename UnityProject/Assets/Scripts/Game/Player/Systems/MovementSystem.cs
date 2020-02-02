@@ -32,7 +32,7 @@ public class MovementSystem : JobComponentSystem
             directionData.directionLook = new int2((int)math.round(moveData.speed), directionData.directionLook.y);
 
             entityCommandBuffer.AddComponent(entityInQueryIndex, entity, new SyncMonoTransform_C{position = trans.Value});
-            entityCommandBuffer.RemoveComponent(entityInQueryIndex, entity, typeof(TC_MovingComponentData));
+            //entityCommandBuffer.RemoveComponent(entityInQueryIndex, entity, typeof(TC_MovingComponentData));
 
         }).WithBurst().Schedule(inputDeps);
 

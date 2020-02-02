@@ -43,6 +43,7 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
 
         dstManager.AddComponent<TC_CanPick>(entity);
         dstManager.AddComponent<C_CooldownComponent>(entity);
+        dstManager.AddComponent<TC_MovingComponentData>(entity);
 
     }
 }
