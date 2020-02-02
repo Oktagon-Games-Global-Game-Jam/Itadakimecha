@@ -17,7 +17,7 @@ public class S_MovementInput : ComponentSystem
     {
         m_EntityQuery = GetEntityQuery(new EntityQueryDesc
         {
-            All = new ComponentType[] { ComponentType.ReadOnly<PlayerInput_C>(), typeof(TC_CanMove) },
+            All = new ComponentType[] { ComponentType.ReadOnly<PlayerInput_C>(), ComponentType.ReadOnly<MovementComponentData>() },
         });
     }
 
@@ -29,12 +29,11 @@ public class S_MovementInput : ComponentSystem
         for (int i = 0; i < playerInput.Length; i++)
         {
             float horizontal = Input.GetAxis($"Horizontal_{playerInput[i].inputId}");
-
-
-            EntityManager.AddComponentData<TC_MovingComponentData>(entities[i], new TC_MovingComponentData
+            
+            EntityManager.AddComponentData(entities[i], new TC_MovingComponentData
             {
                 Value = horizontal
-            }); ;
+            });
 
             if(horizontal == 0) {}
             else
@@ -44,7 +43,6 @@ public class S_MovementInput : ComponentSystem
                 data.directionLook.x = dir; //(int) math.ceil(horizontal) != 0 ? (int) math.ceil(horizontal) : data.directionLook.x;
                 EntityManager.SetComponentData(entities[i], data);
             }
-
         }
 
         entities.Dispose();
