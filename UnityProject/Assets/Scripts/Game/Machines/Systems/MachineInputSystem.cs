@@ -69,7 +69,9 @@ public class MachineInputSystem : JobComponentSystem
                     commandBuffer.RemoveComponent<TC_PerformingAction>(entityInQueryIndex, entity);    
                 }
                 
-            }).Schedule(inputDeps);
+            })
+            .WithoutBurst()
+            .Schedule(inputDeps);
 
         lMachineEntities.Dispose(handle);
         entitiesTranslation.Dispose(handle);

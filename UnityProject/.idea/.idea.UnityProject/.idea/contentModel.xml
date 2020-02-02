@@ -22,6 +22,7 @@
               <e p="ECSMonoAnimation_S.cs" t="Include" />
               <e p="ECSMonoTransform_C.cs" t="Include" />
               <e p="ECSMonoTransform_S.cs" t="Include" />
+              <e p="TestAnimationSystem.cs" t="Include" />
             </e>
             <e p="Input" t="Include">
               <e p="C_PlayerInput.cs" t="Include" />
@@ -45,11 +46,15 @@
                 <e p="MachineComponentData.cs" t="Include" />
               </e>
               <e p="Systems" t="Include">
+                <e p="MachineAnimationReadyPickSystem.cs" t="Include" />
                 <e p="MachineCreateSystem.cs" t="Include" />
                 <e p="MachineCreationCooldownSystem.cs" t="Include" />
                 <e p="MachineInputSystem.cs" t="Include" />
                 <e p="MachineInteractSystem.cs" t="Include" />
               </e>
+            </e>
+            <e p="Monobehaviour" t="Include">
+              <e p="kaiju.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
               <e p="Components" t="Include">
