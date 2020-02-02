@@ -29,7 +29,6 @@ public class MovementSystem : JobComponentSystem
             .ForEach((Entity entity, int entityInQueryIndex, in Translation trans, in MovementComponentData moveData, in DirectionData directionData, in TC_MovingComponentData movingData) =>
             {
                 entityCommandBuffer.SetComponent(entityInQueryIndex, entity, new Translation { Value = new float3(trans.Value.x + (deltaTime * moveData.speed * movingData.Value), trans.Value.y, trans.Value.z) });
-                entityCommandBuffer.SetComponent(entityInQueryIndex, entity, new DirectionData { directionLook = new int2((int)math.round(moveData.speed), directionData.directionLook.y) });
                 entityCommandBuffer.RemoveComponent<TC_MovingComponentData>(entityInQueryIndex, entity);
             })
             .Schedule(inputDeps);

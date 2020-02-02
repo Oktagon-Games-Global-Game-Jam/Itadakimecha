@@ -23,7 +23,7 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
 
         dstManager.AddComponentData(entity, new PlayerInput_C
         {
-            inputId = 0
+            inputId = PlayerIndex
         });
         
         dstManager.AddComponentData(entity, new JumpComponentData
