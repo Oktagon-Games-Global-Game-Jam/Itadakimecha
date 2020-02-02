@@ -24,17 +24,16 @@ public class MovementSystem : JobComponentSystem
 
         float deltaTime = Time.DeltaTime;
 
-        JobHandle jobHandle = Entities
-            .ForEach((Entity entity, int entityInQueryIndex, ref Translation trans, ref MovementComponentData moveData, ref DirectionData directionData, in TC_MovingComponentData movingData) =>
-        {
-            trans.Value = new float3(trans.Value.x + (deltaTime * moveData.speed * movingData.Value), trans.Value.y, trans.Value.z);
-            //Debug.Log(trans.Value);
-            directionData.directionLook = new int2((int)math.round(moveData.speed), directionData.directionLook.y);
-
-            entityCommandBuffer.AddComponent(entityInQueryIndex, entity, new SyncMonoTransform_C{position = trans.Value});
-            entityCommandBuffer.RemoveComponent(entityInQueryIndex, entity, typeof(TC_MovingComponentData));
-
-        }).WithBurst().Schedule(inputDeps);
+        JobHandle jobHandle = 
+            Entities
+            .ForEach((Entity entity, int entityInQueryIndex, in Translation trans, in MovementComponentData moveData, in DirectionData directionData, in TC_MovingComponentData movingData) =>
+            {
+                entityCommandBuffer.SetComponent(entityInQueryIndex, entity, new Translation { Value = new float3(trans.Value.x + (deltaTime * moveData.speed * movingData.Value), trans.Value.y, trans.Value.z) });
+                entityCommandBuffer.SetComponent(entityInQueryIndex, entity, new DirectionData { directionLook = new int2((int)math.round(moveData.speed), directionData.directionLook.y) });
+                entityCommandBuffer.AddComponent(entityInQueryIndex, entity, new SyncMonoTransform_C{position = trans.Value});
+                entityCommandBuffer.RemoveComponent<TC_MovingComponentData>(entityInQueryIndex, entity);
+            })
+            .Schedule(inputDeps);
 
         //jobHandle.Complete();
         begin.AddJobHandleForProducer(inputDeps);

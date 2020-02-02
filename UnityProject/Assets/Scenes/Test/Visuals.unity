@@ -354,11 +354,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 340489670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a3769c2fa7ee2f4488dbe9f58d4d8dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 6548d5bca3209124cbb5c86d2ad7daab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InputId: 0
   m_Animator: {fileID: 340489671}
+  PickupDistance: 0
+  JumpForce: 0
+  Speed: 8
+  PlayerIndex: 0
 --- !u!4 &340489674
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
 {
-
+    public Animator m_Animator;
     public int PickupDistance;
     public int JumpForce;
     public float Speed;
@@ -17,9 +17,10 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponent<DirectionData>(entity);
-
         dstManager.AddComponent<TC_InitializeFreezeAxes>(entity);
-        
+        dstManager.AddComponent<TC_CanPick>(entity);
+        dstManager.AddComponent<C_CooldownComponent>(entity);
+
         dstManager.AddComponentData(entity, new PlayerInput_C
         {
             inputId = 0
@@ -40,8 +41,13 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
             PickupDistance = PickupDistance
         });
 
-        dstManager.AddComponent<TC_CanPick>(entity);
-        dstManager.AddComponent<C_CooldownComponent>(entity);
-
+        dstManager.AddComponentData(entity, new MonoAnimated_C
+        {
+            id = ECSMonoAnimation.Instance.AddAnimator(m_Animator)
+        });
+        dstManager.AddComponentData(entity, new MonoTransform_C
+        {
+            id = ECSMonoAnimation.Instance.AddTransform(this.transform)
+        });        
     }
 }
