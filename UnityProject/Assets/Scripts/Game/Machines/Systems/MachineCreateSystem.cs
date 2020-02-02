@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
+using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 public class MachineCreateSystem : JobComponentSystem
@@ -13,35 +16,56 @@ public class MachineCreateSystem : JobComponentSystem
         m_EntityCommandBuffer = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
         
         m_Query = GetEntityQuery(new EntityQueryDesc {
-            All = new ComponentType[] { typeof(Prefab) },
+            All = new ComponentType[] { ComponentType.ReadOnly<Prefab>(), ComponentType.ReadOnly<C_ItemData>(),   },
         });
     }
     
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
 
+        NativeArray<Entity> lPartsPrefabs = m_Query.ToEntityArray(Allocator.TempJob);
+        NativeArray<C_ItemData> lPartsPrefabsData = m_Query.ToComponentDataArray<C_ItemData>(Allocator.TempJob);
+       
         EntityCommandBuffer.Concurrent CommandBuffer = m_EntityCommandBuffer.CreateCommandBuffer().ToConcurrent();        
         JobHandle handle = Entities
-            .WithAll<TC_CooldownCompleted>()
+            .WithAll<TC_CooldownCompleted, TC_Interact>()
             .WithNone<TC_CooldownRunning>()
-            .ForEach((Entity entity, int entityInQueryIndex, in C_MachineComponentData data) =>
+            .ForEach((Entity entity, int entityInQueryIndex, in C_MachineComponentData data, in Translation translation) =>
             {
                 CommandBuffer.RemoveComponent<TC_CooldownCompleted>(entityInQueryIndex, entity);
-                
-                // SearchInPrefabs the prefab of data.Result
 
-                Entity t = CommandBuffer.CreateEntity(entityInQueryIndex);
-                CommandBuffer.AddComponent<C_ItemData>(entityInQueryIndex, t);
-                CommandBuffer.SetComponent(entityInQueryIndex, t, new C_ItemData
+                for (int i = 0; i < lPartsPrefabs.Length; i++)
                 {
-                    Type = data.Result
+                    if(lPartsPrefabsData[i].Type != data.Result) continue;
+                    Entity t = CommandBuffer.Instantiate(entityInQueryIndex, lPartsPrefabs[i]);
+                    CommandBuffer.SetComponent(entityInQueryIndex, t, new Translation
+                    {
+                        Value = new float3
+                        {
+                            x = translation.Value.x,
+                            y = translation.Value.y,
+                            z = 0, 
+                        }
+                    });
+                }
+
+                CommandBuffer.SetComponent(entityInQueryIndex, entity, new C_CooldownComponent()
+                {
+                    DeltaTime = 0,
+                    Cooldown = 2,
                 });
+                CommandBuffer.AddComponent<TC_CreationCooldown>(entityInQueryIndex, entity);
+                CommandBuffer.AddComponent<TC_CooldownRunning>(entityInQueryIndex, entity);
+                CommandBuffer.RemoveComponent<TC_Interact>(entityInQueryIndex, entity);
                 
 
             })
             .Schedule(inputDeps);
         
         handle.Complete();
+
+        lPartsPrefabs.Dispose(handle);
+        lPartsPrefabsData.Dispose(handle);
 
         return handle;
 

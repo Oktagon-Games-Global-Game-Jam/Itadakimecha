@@ -25,7 +25,6 @@ public class DropSystem : JobComponentSystem
         
         JobHandle jobConfigureDrop = Entities
             .WithAll<TC_PerformingAction>()
-            .WithNone<TC_CanPick>()
             .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_HoldComponentData holdComponent, in DirectionData directionData) =>
             {
                 int2 i2Direction = directionData.directionLook;
