@@ -20,8 +20,8 @@ public enum ProductType
 {
     None = 0,
     Head,
-    HotBody,
-    Body,
+    HotArm,
+    Arm,
     HotLeg,
     Leg
 }
