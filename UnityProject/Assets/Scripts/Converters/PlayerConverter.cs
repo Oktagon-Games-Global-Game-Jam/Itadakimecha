@@ -16,6 +16,7 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
     
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
+        //setup entity
         dstManager.AddComponent<DirectionData>(entity);
         dstManager.AddComponent<TC_InitializeFreezeAxes>(entity);
         dstManager.AddComponent<TC_CanPick>(entity);
@@ -48,6 +49,10 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new MonoTransform_C
         {
             id = ECSMonoAnimation.Instance.AddTransform(this.transform)
-        });        
+        });
+
+        //remove unused monobehaviors
+        Destroy(this.GetComponent<UnityEngine.BoxCollider>());
+        Destroy(this.GetComponent<UnityEngine.Rigidbody>());
     }
 }

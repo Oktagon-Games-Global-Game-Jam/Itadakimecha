@@ -8,7 +8,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Physics;
 
-//[AlwaysSynchronizeSystem]
+[UpdateAfter(typeof(Unity.Physics.Systems.EndFramePhysicsSystem))]
 public class MovementSystem : JobComponentSystem
 {
     public BeginSimulationEntityCommandBufferSystem begin;
@@ -34,9 +34,9 @@ public class MovementSystem : JobComponentSystem
             })
             .Schedule(inputDeps);
 
-        //jobHandle.Complete();
+        jobHandle.Complete();
         begin.AddJobHandleForProducer(inputDeps);
 
-        return jobHandle;
+        return inputDeps;
     }
 }
