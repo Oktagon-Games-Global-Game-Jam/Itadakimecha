@@ -28,7 +28,6 @@ public class SetChildrenPositionSystem : JobComponentSystem
                 commandBuffer.SetComponent(entityInQueryIndex, holdData.Item, new C_SetPositionComponentData
                 {
                     Position = translation.Value,
-                    DirectionX = directionData.directionLook.x
                 });
             }).Schedule(inputDeps);
         
@@ -40,7 +39,7 @@ public class SetChildrenPositionSystem : JobComponentSystem
             else
             {
                 float3 finalPos = setPositionComponentData.Position;
-                finalPos.x += setPositionComponentData.DirectionX * 2;
+                finalPos.y += 1.3f;
                 physicsVelocity.Linear = float3.zero;
                 translation.Value = finalPos;
             }
