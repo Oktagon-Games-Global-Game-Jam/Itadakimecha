@@ -7,3 +7,4 @@ public struct C_CooldownComponent : IComponentData
 }
 
 public struct TC_CooldownCompleted : IComponentData {}
+public struct TC_CooldownRunning : IComponentData {}

@@ -1,13 +1,16 @@
-﻿using Unity.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
-using Unity.Transforms;
 using Unity.Mathematics;
-using Unity.Physics;
+using Unity.Transforms;
 using UnityEngine;
 
-public class PickupSystem : JobComponentSystem
+[UpdateBefore(typeof(PickupSystem))]
+public class MachineInputSystem : JobComponentSystem
 {
+    
     private EntityQuery m_Query;
     private BeginSimulationEntityCommandBufferSystem m_EntityCommandBuffer;
     protected override void OnCreate()
@@ -15,19 +18,20 @@ public class PickupSystem : JobComponentSystem
         m_EntityCommandBuffer = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
         
         m_Query = GetEntityQuery(new EntityQueryDesc {
-            All = new ComponentType[] { typeof(Translation), typeof(TC_Pickable) },
+            All = new ComponentType[] { typeof(Translation), typeof(C_MachineComponentData) },
+            None = new ComponentType[] { typeof(TC_CooldownRunning), typeof(TC_CooldownCompleted)}
         });
-        
     }
-
+    
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
-        NativeArray<Entity> lEntitiesToPickup = m_Query.ToEntityArray(Allocator.TempJob);
+        NativeArray<Entity> lMachineEntities = m_Query.ToEntityArray(Allocator.TempJob);
         NativeArray<Translation> entitiesTranslation = m_Query.ToComponentDataArray<Translation>(Allocator.TempJob);
         EntityCommandBuffer.Concurrent commandBuffer = m_EntityCommandBuffer.CreateCommandBuffer().ToConcurrent();
-        
-        JobHandle handle = Entities.
-            WithAll<TC_PerformingAction>()
+
+        // Find closest Machine and interact with
+        JobHandle handle = Entities
+            .WithAll<TC_PerformingAction>()
             .WithNone<C_HoldComponentData>()
             .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_PickInfo pickInfo, in DirectionData directionData) =>
             {
@@ -53,28 +57,26 @@ public class PickupSystem : JobComponentSystem
                 if(iClosestEntity == -1) {}
                 else
                 {
-                    commandBuffer.RemoveComponent<TC_CanPick>(entityInQueryIndex, entity);
-                    commandBuffer.AddComponent<C_HoldComponentData>(entityInQueryIndex, entity);
-                    commandBuffer.SetComponent(entityInQueryIndex, entity, new C_HoldComponentData
+                    commandBuffer.AddComponent<TC_CooldownAction>(entityInQueryIndex, entity);
+                    commandBuffer.AddComponent<TC_CooldownRunning>(entityInQueryIndex, entity);
+                    commandBuffer.SetComponent(entityInQueryIndex, entity, new C_CooldownComponent
                     {
-                        Item = lEntitiesToPickup[iClosestEntity]
+                        Cooldown = 1,
+                        DeltaTime = 0
                     });
-
-                    commandBuffer.RemoveComponent<TC_Pickable>(entityInQueryIndex, lEntitiesToPickup[iClosestEntity]);
-                    commandBuffer.AddComponent<TC_InHold>(entityInQueryIndex, lEntitiesToPickup[iClosestEntity]);
-                    commandBuffer.AddComponent<C_SetPositionComponentData>(entityInQueryIndex, lEntitiesToPickup[iClosestEntity]);
                     
+                    commandBuffer.AddComponent<TC_Interact>(entityInQueryIndex, lMachineEntities[iClosestEntity]);
+                    commandBuffer.RemoveComponent<TC_PerformingAction>(entityInQueryIndex, entity);    
                 }
-                commandBuffer.RemoveComponent<TC_PerformingAction>(entityInQueryIndex, entity);
                 
-        }).WithoutBurst().Schedule(inputDeps);
+            }).Schedule(inputDeps);
 
+        lMachineEntities.Dispose(handle);
+        entitiesTranslation.Dispose(handle);
+        
         handle.Complete();
-        
-        m_EntityCommandBuffer.AddJobHandleForProducer(handle);
-        
-        lEntitiesToPickup.Dispose(inputDeps);
-        entitiesTranslation.Dispose(inputDeps);
+
         return handle;
+
     }
 }

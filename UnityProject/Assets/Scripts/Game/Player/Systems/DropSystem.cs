@@ -9,8 +9,6 @@ using UnityEngine;
 [UpdateAfter(typeof(PickupSystem))]
 public class DropSystem : JobComponentSystem
 {
-    
-    private EntityQuery m_Query;
     private BeginSimulationEntityCommandBufferSystem m_EntityCommandBuffer;
     protected override void OnCreate()
     {
@@ -24,8 +22,9 @@ public class DropSystem : JobComponentSystem
 
         EntityCommandBuffer.Concurrent commandBuffer = m_EntityCommandBuffer.CreateCommandBuffer().ToConcurrent();
         
-        JobHandle jobHandle = Entities
-            .WithAll<TC_PickHoldAction>()
+        
+        JobHandle jobConfigureDrop = Entities
+            .WithAll<TC_PerformingAction>()
             .WithNone<TC_CanPick>()
             .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_HoldComponentData holdComponent, in DirectionData directionData) =>
             {
@@ -37,12 +36,13 @@ public class DropSystem : JobComponentSystem
                 {
                     Position = new float3(fXDropPosition, translation.Value.y, 0)
                 });
-                commandBuffer.RemoveComponent<TC_PickHoldAction>(entityInQueryIndex, entity);
+                commandBuffer.RemoveComponent<TC_PerformingAction>(entityInQueryIndex, entity);
                 commandBuffer.RemoveComponent<C_HoldComponentData>(entityInQueryIndex, entity);
-                commandBuffer.AddComponent<TC_Dropping>(entityInQueryIndex, entity);
+                commandBuffer.AddComponent<TC_CooldownAction>(entityInQueryIndex, entity);
+                commandBuffer.AddComponent<TC_CooldownRunning>(entityInQueryIndex, entity);
                 commandBuffer.SetComponent(entityInQueryIndex, entity, new C_CooldownComponent
                 {
-                    Cooldown = 2,
+                    Cooldown = 1,
                     DeltaTime = 0
                 });
                 
@@ -50,7 +50,7 @@ public class DropSystem : JobComponentSystem
             }).Schedule(inputDeps);
         
         
-        jobHandle.Complete();
+        jobConfigureDrop.Complete();
 
         JobHandle jobHandle2 = Entities
             .ForEach((Entity entity, int entityInQueryIndex, ref Translation translation, in MC_RemoveInHold messageRemove, in TC_InHold inHold) =>
@@ -60,7 +60,7 @@ public class DropSystem : JobComponentSystem
                 commandBuffer.RemoveComponent<MC_RemoveInHold>(entityInQueryIndex, entity);
                 commandBuffer.AddComponent<TC_Pickable>(entityInQueryIndex, entity);
                 commandBuffer.RemoveComponent<C_SetPositionComponentData>(entityInQueryIndex, entity);
-            }).Schedule(jobHandle);
+            }).Schedule(jobConfigureDrop);
         
         jobHandle2.Complete();
         

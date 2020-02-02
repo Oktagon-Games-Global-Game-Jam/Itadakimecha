@@ -19,11 +19,11 @@ public class PickupCooldownSystem : JobComponentSystem
     {
         EntityCommandBuffer.Concurrent CommandBuffer = m_EntityCommandBuffer.CreateCommandBuffer().ToConcurrent();
         JobHandle jobHandle = Entities
-            .WithAll<TC_CooldownCompleted, TC_Dropping>()
+            .WithAll<TC_CooldownCompleted, TC_CooldownAction, C_PickInfo>()
             .ForEach((Entity entity, int entityInQueryIndex) =>
             {
                 CommandBuffer.RemoveComponent<TC_CooldownCompleted>(entityInQueryIndex, entity);
-                CommandBuffer.RemoveComponent<TC_Dropping>(entityInQueryIndex, entity);
+                CommandBuffer.RemoveComponent<TC_CooldownAction>(entityInQueryIndex, entity);
                 CommandBuffer.AddComponent<TC_CanPick>(entityInQueryIndex, entity);
             }).Schedule(inputDeps);
 
