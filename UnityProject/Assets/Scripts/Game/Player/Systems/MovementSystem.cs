@@ -8,7 +8,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Physics;
 
-[UpdateAfter(typeof(Unity.Physics.Systems.EndFramePhysicsSystem))]
+//[UpdateAfter(typeof(Unity.Physics.Systems.EndFramePhysicsSystem))]
 public class MovementSystem : JobComponentSystem
 {
     public BeginSimulationEntityCommandBufferSystem begin;
@@ -26,9 +26,14 @@ public class MovementSystem : JobComponentSystem
 
         JobHandle jobHandle = 
             Entities
-            .ForEach((Entity entity, int entityInQueryIndex, in Translation trans, in MovementComponentData moveData, in DirectionData directionData, in TC_MovingComponentData movingData) =>
+            .ForEach((Entity entity, int entityInQueryIndex, in PhysicsVelocity velocity, in MovementComponentData moveData, in DirectionData directionData, in TC_MovingComponentData movingData) =>
             {
-                entityCommandBuffer.SetComponent(entityInQueryIndex, entity, new Translation { Value = new float3(trans.Value.x + (deltaTime * moveData.speed * movingData.Value), trans.Value.y, trans.Value.z) });
+                //entityCommandBuffer.SetComponent(entityInQueryIndex, entity, new Translation { Value = new float3(trans.Value.x + (deltaTime * moveData.speed * movingData.Value), trans.Value.y, trans.Value.z) });
+                entityCommandBuffer.SetComponent(entityInQueryIndex, entity, new PhysicsVelocity
+                {
+                    Angular = velocity.Angular,
+                    Linear = new float3(moveData.speed * movingData.Value, velocity.Linear.y, velocity.Linear.z)
+                });
                 entityCommandBuffer.RemoveComponent<TC_MovingComponentData>(entityInQueryIndex, entity);
             })
             .Schedule(inputDeps);
