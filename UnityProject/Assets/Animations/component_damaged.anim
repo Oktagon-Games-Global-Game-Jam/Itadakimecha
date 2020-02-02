@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: arm_heat
+  m_Name: component_damaged
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
