@@ -21,7 +21,7 @@ public class InputTestBoot : MonoBehaviour
         });
         entityManager.AddComponent<Translation>(player);
         entityManager.AddComponent<MovementComponentData>(player);
-        entityManager.AddComponent<C_CanPick>(player);
+        entityManager.AddComponent<TC_CanPick>(player);
         entityManager.SetName(player, "Player");
 
     }

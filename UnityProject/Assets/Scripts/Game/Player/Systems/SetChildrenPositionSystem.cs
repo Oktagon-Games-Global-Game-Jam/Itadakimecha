@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -22,24 +23,26 @@ public class SetChildrenPositionSystem : JobComponentSystem
     {
         EntityCommandBuffer.Concurrent commandBuffer = m_EntityCommandBuffer.CreateCommandBuffer().ToConcurrent();
         
-        JobHandle savePos = Entities.ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_HoldComponentData holdData) =>
+        JobHandle savePos = Entities.ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_HoldComponentData holdData, in DirectionData directionData) =>
             {
-                commandBuffer.AddComponent<C_SetPositionComponentData>(entityInQueryIndex, holdData.Item);
                 commandBuffer.SetComponent(entityInQueryIndex, holdData.Item, new C_SetPositionComponentData
                 {
                     Position = translation.Value,
+                    DirectionX = directionData.directionLook.x
                 });
             }).Schedule(inputDeps);
         
         savePos.Complete();
 
-        JobHandle updatePos = Entities.ForEach((Entity entity, int entityInQueryIndex, ref Translation translation, in C_SetPositionComponentData setPositionComponentData) =>
+        JobHandle updatePos = Entities.ForEach((Entity entity, int entityInQueryIndex, ref Translation translation, ref PhysicsVelocity physicsVelocity, in C_SetPositionComponentData setPositionComponentData) =>
         {
             if( translation.Value.Equals(setPositionComponentData.Position) ) {}
             else
             {
-                translation.Value = new float3(setPositionComponentData.Position);
-                commandBuffer.RemoveComponent<C_SetPositionComponentData>(entityInQueryIndex, entity);
+                float3 finalPos = setPositionComponentData.Position;
+                finalPos.x += setPositionComponentData.DirectionX * 2;
+                physicsVelocity.Linear = float3.zero;
+                translation.Value = finalPos;
             }
 
         }).Schedule(inputDeps);

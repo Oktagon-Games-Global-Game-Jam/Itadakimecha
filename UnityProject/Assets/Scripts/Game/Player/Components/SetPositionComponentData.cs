@@ -7,4 +7,5 @@ using UnityEngine;
 public struct C_SetPositionComponentData : IComponentData
 {
     public float3 Position;
+    public int DirectionX;
 }

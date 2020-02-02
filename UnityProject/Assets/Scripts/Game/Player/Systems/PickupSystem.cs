@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
 using Unity.Mathematics;
+using Unity.Physics;
 using UnityEngine;
 
 public class PickupSystem : JobComponentSystem
@@ -29,30 +30,31 @@ public class PickupSystem : JobComponentSystem
         JobHandle handle = Entities.
             WithAll<TC_PickHoldAction>()
             .WithNone<C_HoldComponentData>()
-            .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_CanPick canPick, in DirectionData directionData) =>
+            .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_PickInfo pickInfo, in DirectionData directionData) =>
             {
                 int2 i2Direction = directionData.directionLook;
                 float fMinLength = translation.Value.x;
-                float fMaxLength = translation.Value.x + i2Direction.x * canPick.PickupDistance;
+                float fMaxLength = translation.Value.x + i2Direction.x * pickInfo.PickupDistance;
             
-                Debug.Log(fMinLength + " - " + fMaxLength);
             
                 int iClosestEntity = -1;
                 float lastDistance = -1;
                 for (int i = 0; i < entitiesTranslation.Length; i++)
                 {
+
                     Translation objTranslation = new Translation {Value = entitiesTranslation[i].Value};
+
                     if (!Utils.IsInRange(objTranslation.Value.x, fMinLength, fMaxLength)) continue;
                     var actualDistance = Utils.CalculateDistance(objTranslation.Value.x, translation.Value.x);
+
                     if(lastDistance > actualDistance) continue;
                     lastDistance = actualDistance;
                     iClosestEntity = i;
                 }
-                
                 if(iClosestEntity == -1) {}
                 else
                 {
-                    commandBuffer.RemoveComponent<C_CanPick>(entityInQueryIndex, entity);
+                    commandBuffer.RemoveComponent<TC_CanPick>(entityInQueryIndex, entity);
                     commandBuffer.AddComponent<C_HoldComponentData>(entityInQueryIndex, entity);
                     commandBuffer.SetComponent(entityInQueryIndex, entity, new C_HoldComponentData
                     {
@@ -61,6 +63,8 @@ public class PickupSystem : JobComponentSystem
 
                     commandBuffer.RemoveComponent<TC_Pickable>(entityInQueryIndex, lEntitiesToPickup[iClosestEntity]);
                     commandBuffer.AddComponent<TC_InHold>(entityInQueryIndex, lEntitiesToPickup[iClosestEntity]);
+                    commandBuffer.AddComponent<C_SetPositionComponentData>(entityInQueryIndex, lEntitiesToPickup[iClosestEntity]);
+                    
                 }
                 commandBuffer.RemoveComponent<TC_PickHoldAction>(entityInQueryIndex, entity);
                 
