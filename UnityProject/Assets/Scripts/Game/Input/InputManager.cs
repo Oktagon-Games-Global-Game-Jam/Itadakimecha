@@ -17,7 +17,7 @@ public class S_MovementInput : ComponentSystem
     {
         m_EntityQuery = GetEntityQuery(new EntityQueryDesc
         {
-            All = new ComponentType[] { ComponentType.ReadOnly<PlayerInput_C>(), typeof(TC_CanMove) },
+            All = new ComponentType[] { ComponentType.ReadOnly<PlayerInput_C>(), ComponentType.ReadOnly<MovementComponentData>() },
         });
     }
 
