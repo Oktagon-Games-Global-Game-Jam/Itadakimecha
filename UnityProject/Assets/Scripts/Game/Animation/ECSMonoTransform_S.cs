@@ -2,6 +2,7 @@
 using System.Collections;
 using Unity.Entities;
 using Unity.Jobs;
+using Unity.Transforms;
 
 public class ECSMonoTransform_S : JobComponentSystem
 {
@@ -17,10 +18,9 @@ public class ECSMonoTransform_S : JobComponentSystem
         var commandBuffer = m_EntityCommandBuffer.CreateCommandBuffer();
 
         //var jobHandle = 
-        Entities.ForEach((Entity entity, in MonoTransform_C transform, in SyncMonoTransform_C sync) =>
+        Entities.ForEach((Entity entity, in MonoTransform_C transform, in Translation trans) =>
         {
-            ECSMonoAnimation.Instance.SyncTransform(transform.id, sync.position);
-            commandBuffer.RemoveComponent<PlayMonoAnimation_C>(entity);
+            ECSMonoAnimation.Instance.SyncTransform(transform.id, trans.Value);
         })
         //.Schedule(inputDeps);
         .WithoutBurst()
