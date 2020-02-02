@@ -31,7 +31,7 @@ public class S_MovementInput : ComponentSystem
             float horizontal = Input.GetAxis($"Horizontal_{playerInput[i].inputId}");
 
 
-            EntityManager.SetComponentData<TC_MovingComponentData>(entities[i], new TC_MovingComponentData
+            EntityManager.AddComponentData<TC_MovingComponentData>(entities[i], new TC_MovingComponentData
             {
                 Value = horizontal
             }); ;
