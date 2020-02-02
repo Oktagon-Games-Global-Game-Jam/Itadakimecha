@@ -14,7 +14,7 @@ public struct C_MachineComponentData : IComponentData
 
 public struct TC_Interact : IComponentData {}
 
-
+public struct TC_CreationCooldown : IComponentData {}
 
 public enum ProductType
 {

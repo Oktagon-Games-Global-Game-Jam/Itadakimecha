@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\JAM\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\JAM\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_UnityProject.212528943.00" t="ExcludeRecursive" />
+    <e p="C:\Users\JAM\Documents\encs1\UnityProject" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="Converters" t="Include">
+            <e p="LadderConverter.cs" t="Include" />
+            <e p="MachineConverter.cs" t="Include" />
+            <e p="PickupItemConverter.cs" t="Include" />
+            <e p="PickupPlayerConverter.cs" t="Include" />
+            <e p="PlayerConverter.cs" t="Include" />
+            <e p="ResourceConverter.cs" t="Include" />
+          </e>
+          <e p="Game" t="Include">
+            <e p="Animation" t="Include">
+              <e p="ECSMonoAnimation.cs" t="Include" />
+              <e p="ECSMonoAnimation_C.cs" t="Include" />
+              <e p="ECSMonoAnimation_S.cs" t="Include" />
+              <e p="ECSMonoTransform_C.cs" t="Include" />
+              <e p="ECSMonoTransform_S.cs" t="Include" />
+            </e>
+            <e p="Input" t="Include">
+              <e p="C_PlayerInput.cs" t="Include" />
+              <e p="S_LadderInput.cs" t="Include" />
+              <e p="S_MovementInput.cs" t="Include" />
+              <e p="S_PickupInput.cs" t="Include" />
+            </e>
+            <e p="Ladder" t="Include">
+              <e p="Components" t="Include">
+                <e p="LadderComponentData.cs" t="Include" />
+              </e>
+              <e p="Systems" t="Include">
+                <e p="LadderEnterAreaSystem.cs" t="Include" />
+                <e p="LadderExitAreaSystem.cs" t="Include" />
+                <e p="LadderMovement_S.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Machines" t="Include">
+              <e p="Components" t="Include">
+                <e p="ItemComponentData.cs" t="Include" />
+                <e p="MachineComponentData.cs" t="Include" />
+              </e>
+              <e p="Systems" t="Include">
+                <e p="MachineCreateSystem.cs" t="Include" />
+                <e p="MachineCreationCooldownSystem.cs" t="Include" />
+                <e p="MachineInputSystem.cs" t="Include" />
+                <e p="MachineInteractSystem.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Player" t="Include">
+              <e p="Components" t="Include">
+                <e p="DirectionData.cs" t="Include" />
+                <e p="JumpComponentData.cs" t="Include" />
+                <e p="MovementComponentData.cs" t="Include" />
+                <e p="PickupComponentData.cs" t="Include" />
+                <e p="SetPositionComponentData.cs" t="Include" />
+                <e p="TC_MovingComponentData.cs" t="Include" />
+              </e>
+              <e p="Systems" t="Include">
+                <e p="DropSystem.cs" t="Include" />
+                <e p="JumpSystem.cs" t="Include" />
+                <e p="MovementSystem.cs" t="Include" />
+                <e p="PickupCooldownSystem.cs" t="Include" />
+                <e p="PickupSystem.cs" t="Include" />
+                <e p="SetChildrenPositionSystem.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Resources" t="Include">
+              <e p="Components" t="Include">
+                <e p="ResourceComponentData.cs" t="Include" />
+              </e>
+              <e p="Systems" t="Include">
+                <e p="ResourceSystem.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Utils" t="Include">
+              <e p="Components" t="Include">
+                <e p="CooldownComponent.cs" t="Include" />
+                <e p="InitilizerComponent.cs" t="Include" />
+              </e>
+              <e p="Scripts" t="Include">
+                <e p="Utils.cs" t="Include" />
+              </e>
+              <e p="Systems" t="Include">
+                <e p="CooldownSystem.cs" t="Include" />
+                <e p="GameInitializerSystem.cs" t="Include" />
+                <e p="TestInput.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="UnityProject.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

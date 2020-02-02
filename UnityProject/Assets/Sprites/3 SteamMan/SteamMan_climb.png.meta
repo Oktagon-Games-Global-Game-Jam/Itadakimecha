@@ -1,30 +1,12 @@
 fileFormatVersion: 2
-guid: f9a09ecb143e42d44a282d2d7623f675
+guid: 5c85b6d5770210743a7a2aeb0b60e443
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -2050515115836288021
-    second: SteamMan_climb_0
-  - first:
-      213: -6377258595460854562
-    second: SteamMan_climb_1
-  - first:
-      213: -1025059064577030151
-    second: SteamMan_climb_2
-  - first:
-      213: 4251321664545630239
-    second: SteamMan_climb_3
-  - first:
-      213: 2802937388376197118
-    second: SteamMan_climb_4
-  - first:
-      213: -1932113948721171340
-    second: SteamMan_climb_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -52,13 +34,13 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -100
-    wrapU: 1
-    wrapV: 1
+    wrapU: -1
+    wrapV: -1
     wrapW: -1
-  nPOTScale: 0
+  nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -67,9 +49,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 0
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
@@ -88,151 +70,13 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: SteamMan_climb_0
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 0
-        width: 21
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 737a71d5b9e28194aa872fe335a131c9
-      internalID: -2050515115836288021
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SteamMan_climb_1
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 1
-        width: 21
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71352d402e42c4a4e8fd436f27b22ff0
-      internalID: -6377258595460854562
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SteamMan_climb_2
-      rect:
-        serializedVersion: 2
-        x: 102
-        y: 1
-        width: 21
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25cb0204120516f478dbd0cf9e6f4cfe
-      internalID: -1025059064577030151
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SteamMan_climb_3
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 21
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4909b2da2681db4aa9073e3589a7ff7
-      internalID: 4251321664545630239
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SteamMan_climb_4
-      rect:
-        serializedVersion: 2
-        x: 198
-        y: 1
-        width: 21
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b999b4c87e07f14a9470e85491fd039
-      internalID: 2802937388376197118
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SteamMan_climb_5
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 1
-        width: 21
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1ba72b752b5c3624c86fa75e2b655da3
-      internalID: -1932113948721171340
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: f8d8f7d6a09a7cf4398c91fd0be3ab8a
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 

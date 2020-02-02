@@ -27,7 +27,7 @@ public class MachineInteractSystem : JobComponentSystem
         
         JobHandle handle = Entities
             .WithAll<TC_Interact>()
-            .WithNone<TC_CooldownRunning>()
+            .WithNone<TC_CooldownRunning, TC_CooldownCompleted, TC_CreationCooldown>()
             .ForEach((Entity entity, int entityInQueryIndex, ref C_MachineComponentData data) =>
             {
                 if (resources.Length == 0) {}

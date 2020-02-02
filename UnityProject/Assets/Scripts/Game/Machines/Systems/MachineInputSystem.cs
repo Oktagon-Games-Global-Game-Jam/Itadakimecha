@@ -19,7 +19,7 @@ public class MachineInputSystem : JobComponentSystem
         
         m_Query = GetEntityQuery(new EntityQueryDesc {
             All = new ComponentType[] { typeof(Translation), typeof(C_MachineComponentData) },
-            None = new ComponentType[] { typeof(TC_CooldownRunning), typeof(TC_CooldownCompleted)}
+            None = new ComponentType[] { typeof(TC_CooldownRunning), typeof(TC_CreationCooldown)}
         });
     }
     

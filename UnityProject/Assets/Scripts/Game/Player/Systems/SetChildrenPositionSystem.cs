@@ -41,6 +41,7 @@ public class SetChildrenPositionSystem : JobComponentSystem
                 float3 finalPos = setPositionComponentData.Position;
                 finalPos.y += 1.3f;
                 physicsVelocity.Linear = float3.zero;
+                physicsVelocity.Angular = float3.zero;
                 translation.Value = finalPos;
             }
 
