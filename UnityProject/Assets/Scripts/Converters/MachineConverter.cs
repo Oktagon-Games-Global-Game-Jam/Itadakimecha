@@ -35,5 +35,10 @@ public class MachineConverter : MonoBehaviour, IConvertGameObjectToEntity
         {
             id = ECSMonoAnimation.Instance.AddAnimator(m_Animator)
         });
+        
+        dstManager.AddComponentData(entity, new PlayMonoAnimation_C
+        {
+            id = UnityEngine.Animator.StringToHash("Caixa@Open")
+        });
     }
 }

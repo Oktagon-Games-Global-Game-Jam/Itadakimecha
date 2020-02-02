@@ -48,12 +48,17 @@ public class MachineInteractSystem : JobComponentSystem
                             Cooldown = data.TimeToComplete,
                         });
                         commandBuffer.AddComponent<TC_CooldownRunning>(entityInQueryIndex, entity);
+                        commandBuffer.AddComponent<PlayMonoAnimation_C>(entityInQueryIndex, entity);
+                        commandBuffer.SetComponent(entityInQueryIndex, entity, new PlayMonoAnimation_C
+                        {
+                            id = UnityEngine.Animator.StringToHash("Caixa@Closed") 
+                        });
                     }
                 }
                 
                 commandBuffer.RemoveComponent<TC_Interact>(entityInQueryIndex, entity);
                 
-            }).Schedule(inputDeps);
+            }).WithoutBurst().Schedule(inputDeps);
         
         handle.Complete();
 
