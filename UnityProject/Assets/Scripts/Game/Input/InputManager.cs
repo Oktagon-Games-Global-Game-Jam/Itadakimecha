@@ -29,11 +29,12 @@ public class S_MovementInput : ComponentSystem
         for (int i = 0; i < playerInput.Length; i++)
         {
             float horizontal = Input.GetAxis($"Horizontal_{playerInput[i].inputId}");
-            
-            EntityManager.AddComponentData(entities[i], new TC_MovingComponentData
+
+
+            EntityManager.SetComponentData<TC_MovingComponentData>(entities[i], new TC_MovingComponentData
             {
                 Value = horizontal
-            });
+            }); ;
 
             if(horizontal == 0) {}
             else
@@ -43,6 +44,7 @@ public class S_MovementInput : ComponentSystem
                 data.directionLook.x = dir; //(int) math.ceil(horizontal) != 0 ? (int) math.ceil(horizontal) : data.directionLook.x;
                 EntityManager.SetComponentData(entities[i], data);
             }
+
         }
 
         entities.Dispose();
