@@ -15,6 +15,11 @@ public class ECSMonoAnimation : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        Camera.main.transparencySortMode = TransparencySortMode.Orthographic; 
+    }
+
     public int AddAnimator(Animator animator)
     {
         int instanceId = animator.GetInstanceID();
@@ -34,9 +39,15 @@ public class ECSMonoAnimation : MonoBehaviour
         return instanceId;
     }
 
-    public void SyncTransform(int id, float3 position)//, float3 scale)
+    public void SyncTransform(int id, float3 position)
     {
         m_TransformDictionary[id].position = position;
         //m_TransformDictionary[id].localScale = scale;
+    }
+
+    public void SyncTransform(int id, float3 position, float3 scale)
+    {
+        m_TransformDictionary[id].position = position;
+        m_TransformDictionary[id].localScale = scale;
     }
 }

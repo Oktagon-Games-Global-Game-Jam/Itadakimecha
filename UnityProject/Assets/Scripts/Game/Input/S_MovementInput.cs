@@ -23,20 +23,31 @@ public class S_MovementInput : ComponentSystem
         for (int i = 0; i < playerInput.Length; i++)
         {
             float horizontal = Input.GetAxis($"Horizontal_{playerInput[i].inputId}");
-
-
+            
             EntityManager.AddComponentData<TC_MovingComponentData>(entities[i], new TC_MovingComponentData
             {
                 Value = horizontal
             }); ;
 
-            if (horizontal == 0) { }
+            if (horizontal == 0)
+            {
+                EntityManager.AddComponentData(entities[i], new PlayMonoAnimation_C
+                {
+                    id = Animator.StringToHash("char_idle")
+                });
+            }
             else
             {
+
                 int dir = horizontal > 0 ? 1 : -1;
                 DirectionData data = EntityManager.GetComponentData<DirectionData>(entities[i]);
                 data.directionLook.x = dir; //(int) math.ceil(horizontal) != 0 ? (int) math.ceil(horizontal) : data.directionLook.x;
                 EntityManager.SetComponentData(entities[i], data);
+
+                EntityManager.AddComponentData(entities[i], new PlayMonoAnimation_C
+                {
+                    id = Animator.StringToHash("char_run")
+                });
             }
 
         }

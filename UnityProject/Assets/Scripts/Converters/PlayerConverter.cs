@@ -17,7 +17,6 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         //setup entity
-        dstManager.AddComponent<DirectionData>(entity);
         dstManager.AddComponent<TC_InitializeFreezeAxes>(entity);
         dstManager.AddComponent<TC_CanPick>(entity);
         dstManager.AddComponent<C_CooldownComponent>(entity);
@@ -27,12 +26,16 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
         {
             inputId = PlayerIndex
         });
-        
+
         // dstManager.AddComponentData(entity, new JumpComponentData
         // {
         //     jumpForce = JumpForce
         // });
-        
+        dstManager.AddComponentData(entity, new DirectionData
+        {
+            directionLook = new int2(1,0)
+        });
+
         dstManager.AddComponentData(entity, new MovementComponentData
         {
             speed = Speed
