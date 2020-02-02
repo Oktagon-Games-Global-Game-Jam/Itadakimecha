@@ -8,10 +8,9 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Physics;
 
-[AlwaysSynchronizeSystem]
+//[AlwaysSynchronizeSystem]
 public class MovementSystem : JobComponentSystem
 {
-
     public BeginSimulationEntityCommandBufferSystem begin;
 
     protected override void OnCreate()
@@ -21,7 +20,7 @@ public class MovementSystem : JobComponentSystem
 
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
-        EntityCommandBuffer entityCommandBuffer = begin.CreateCommandBuffer();
+        var entityCommandBuffer = begin.CreateCommandBuffer().ToConcurrent();
 
         float deltaTime = Time.DeltaTime;
 
@@ -29,12 +28,16 @@ public class MovementSystem : JobComponentSystem
             .ForEach((Entity entity, int entityInQueryIndex, ref Translation trans, ref MovementComponentData moveData, ref DirectionData directionData, in TC_MovingComponentData movingData) =>
         {
             trans.Value = new float3(trans.Value.x + (deltaTime * moveData.speed * movingData.Value), trans.Value.y, trans.Value.z);
-            Debug.Log(trans.Value);
+            //Debug.Log(trans.Value);
             directionData.directionLook = new int2((int)math.round(moveData.speed), directionData.directionLook.y);
+
+            entityCommandBuffer.AddComponent(entityInQueryIndex, entity, new SyncMonoTransform_C{position = trans.Value});
+            entityCommandBuffer.RemoveComponent(entityInQueryIndex, entity, typeof(TC_MovingComponentData));
 
         }).WithBurst().Schedule(inputDeps);
 
-        jobHandle.Complete();
+        //jobHandle.Complete();
+        begin.AddJobHandleForProducer(inputDeps);
 
         return jobHandle;
     }
