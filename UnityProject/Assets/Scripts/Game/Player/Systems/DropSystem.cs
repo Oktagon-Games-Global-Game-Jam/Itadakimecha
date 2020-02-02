@@ -26,7 +26,7 @@ public class DropSystem : JobComponentSystem
         
         JobHandle jobHandle = Entities
             .WithAll<TC_PickHoldAction>()
-            .WithNone<C_CanPick>()
+            .WithNone<TC_CanPick>()
             .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_HoldComponentData holdComponent, in DirectionData directionData) =>
             {
                 int2 i2Direction = directionData.directionLook;
@@ -39,7 +39,12 @@ public class DropSystem : JobComponentSystem
                 });
                 commandBuffer.RemoveComponent<TC_PickHoldAction>(entityInQueryIndex, entity);
                 commandBuffer.RemoveComponent<C_HoldComponentData>(entityInQueryIndex, entity);
-                commandBuffer.AddComponent<C_CanPick>(entityInQueryIndex, entity);
+                commandBuffer.AddComponent<TC_Dropping>(entityInQueryIndex, entity);
+                commandBuffer.SetComponent(entityInQueryIndex, entity, new C_CooldownComponent
+                {
+                    Cooldown = 2,
+                    DeltaTime = 0
+                });
                 
                 
             }).Schedule(inputDeps);
@@ -54,6 +59,7 @@ public class DropSystem : JobComponentSystem
                 commandBuffer.RemoveComponent<TC_InHold>(entityInQueryIndex, entity);
                 commandBuffer.RemoveComponent<MC_RemoveInHold>(entityInQueryIndex, entity);
                 commandBuffer.AddComponent<TC_Pickable>(entityInQueryIndex, entity);
+                commandBuffer.RemoveComponent<C_SetPositionComponentData>(entityInQueryIndex, entity);
             }).Schedule(jobHandle);
         
         jobHandle2.Complete();

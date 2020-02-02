@@ -29,8 +29,7 @@ public class MovementSystem : JobComponentSystem
             .ForEach((Entity entity, int entityInQueryIndex, ref Translation trans, ref MovementComponentData moveData, ref DirectionData directionData, in TC_MovingComponentData movingData) =>
         {
             trans.Value = new float3(trans.Value.x + (deltaTime * moveData.speed * movingData.Value), trans.Value.y, trans.Value.z);
-            Debug.Log(trans.Value);
-            directionData.directionLook = new int2((int)math.round(moveData.speed), directionData.directionLook.y);
+            //Debug.Log(trans.Value);
 
         }).WithBurst().Schedule(inputDeps);
 

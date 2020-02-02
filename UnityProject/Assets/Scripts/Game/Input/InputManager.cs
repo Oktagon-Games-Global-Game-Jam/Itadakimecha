@@ -8,6 +8,7 @@ using static Unity.Mathematics.math;
 using UnityEngine;
 using System.Collections.Generic;
 
+[UpdateAfter(typeof(CooldownSystem))]
 public class S_MovementInput : ComponentSystem
 {
     private EntityQuery m_EntityQuery;
@@ -34,8 +35,15 @@ public class S_MovementInput : ComponentSystem
             {
                 Value = horizontal
             }); ;
-            EntityManager.SetComponentData(entities[i], new DirectionData() { directionLook = horizontal > 0 ? 1 : -1});
 
+            if(horizontal == 0) {}
+            else
+            {
+                int dir = horizontal > 0 ? 1 : -1;
+                DirectionData data = EntityManager.GetComponentData<DirectionData>(entities[i]);
+                data.directionLook.x = dir; //(int) math.ceil(horizontal) != 0 ? (int) math.ceil(horizontal) : data.directionLook.x;
+                EntityManager.SetComponentData(entities[i], data);
+            }
 
         }
 
@@ -52,7 +60,8 @@ public class S_PickupInput : ComponentSystem
     {
         m_EntityQuery = GetEntityQuery(new EntityQueryDesc
         {
-            All = new ComponentType[] { ComponentType.ReadOnly<C_PlayerInput>(), ComponentType.ReadOnly<C_CanPick>() },
+            All = new ComponentType[] { ComponentType.ReadOnly<C_PlayerInput>(), ComponentType.ReadOnly<TC_CanPick>() },
+            None = new ComponentType[] { typeof(TC_Dropping) }
         });
     }
 

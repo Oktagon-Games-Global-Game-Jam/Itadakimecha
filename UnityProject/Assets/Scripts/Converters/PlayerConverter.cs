@@ -2,37 +2,49 @@
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
 
 public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
 {
+
+    public int PickupDistance;
+    public int JumpForce;
+    public float Speed;
+    public int PlayerIndex;
+    
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponent<C_CanPick>(entity);
-        dstManager.AddComponent<Translation>(entity);
+        dstManager.AddComponent<TC_CanMove>(entity);
         dstManager.AddComponent<DirectionData>(entity);
-        dstManager.AddComponent<MovementComponentData>(entity);
-       
-        dstManager.SetComponentData(entity, new C_CanPick
+
+        dstManager.AddComponent<TC_InitializeFreezeAxes>(entity);
+        
+        dstManager.AddComponentData(entity, new C_PlayerInput
         {
-            PickupDistance = 1
+            action = PlayerIndex,
+            horizontal = PlayerIndex,
+            jump = PlayerIndex
         });
-       
-        dstManager.SetComponentData(entity, new Translation
+        
+        dstManager.AddComponentData(entity, new JumpComponentData
         {
-            Value = transform.position,
+            jumpForce = JumpForce
         });
-       
-        dstManager.SetComponentData(entity, new DirectionData
+        
+        dstManager.AddComponentData(entity, new MovementComponentData
         {
-            //speed = 0,
-            directionLook = new int2 { x = 1, y = 0 }
+            speed = Speed
         });
 
-        dstManager.SetComponentData(entity, new MovementComponentData
+        dstManager.AddComponentData(entity, new C_PickInfo
         {
-            speed = 0,
+            PickupDistance = PickupDistance
         });
+
+        dstManager.AddComponent<TC_CanPick>(entity);
+        dstManager.AddComponent<C_CooldownComponent>(entity);
+
     }
 }

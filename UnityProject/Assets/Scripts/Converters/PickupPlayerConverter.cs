@@ -9,12 +9,12 @@ public class PickupPlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
 {
    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
    {
-       dstManager.AddComponent<C_CanPick>(entity);
+       dstManager.AddComponent<TC_CanPick>(entity);
        dstManager.AddComponent<Translation>(entity);
        dstManager.AddComponent<DirectionData>(entity);
        dstManager.AddComponent<MovementComponentData>(entity);
        
-       dstManager.SetComponentData(entity, new C_CanPick
+       dstManager.SetComponentData(entity, new C_PickInfo
        {
            PickupDistance = 1
        });
@@ -34,5 +34,6 @@ public class PickupPlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
         {
             speed = 0,
         });
-    }
+        
+   }
 }

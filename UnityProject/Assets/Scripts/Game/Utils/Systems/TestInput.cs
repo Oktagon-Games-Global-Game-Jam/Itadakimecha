@@ -10,7 +10,7 @@ public class TestInput : ComponentSystem
     {
         bool dale = (Input.GetMouseButtonDown(0));
 
-        Entities.WithAny<C_CanPick, C_HoldComponentData>().ForEach(
+        Entities.WithAny<TC_CanPick, C_HoldComponentData>().ForEach(
             (Entity entity) =>
             {
                 if (dale)

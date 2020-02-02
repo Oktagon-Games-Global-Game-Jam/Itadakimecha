@@ -4,7 +4,9 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct C_CanPick : IComponentData
+public struct TC_CanPick : IComponentData {}
+
+public struct C_PickInfo : IComponentData
 {
     public int PickupDistance;
 }
@@ -24,3 +26,5 @@ public struct C_HoldComponentData : IComponentData
 {
     public Entity Item;
 }
+
+public struct TC_Dropping : IComponentData {}
