@@ -7,7 +7,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-public class LadderFindingSystem : JobComponentSystem
+public class LadderEnterAreaSystem : JobComponentSystem
 {
     private EndSimulationEntityCommandBufferSystem m_EntityCommandBuffer;
     

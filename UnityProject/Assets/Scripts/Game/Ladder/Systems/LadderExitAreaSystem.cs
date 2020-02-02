@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -26,7 +27,13 @@ public class LadderExitAreaSystem : JobComponentSystem
             .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in C_IsInLadderArea ladder) =>
             {
                 if (IsOutsideLadder(translation.Value, ladder))
+                {
                     commandBuffer.RemoveComponent<C_IsInLadderArea>(entityInQueryIndex, entity);
+                    if (ladder.freezeGravity)
+                    {
+                        commandBuffer.AddComponent<PhysicsVelocity>(entityInQueryIndex, entity);
+                    }
+                }
 
             }).Schedule(inputDeps);
 

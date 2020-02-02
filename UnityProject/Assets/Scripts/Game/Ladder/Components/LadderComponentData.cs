@@ -13,8 +13,14 @@ public struct C_LadderComponentData : IComponentData
 
 public struct C_IsInLadderArea : IComponentData
 {
+    public bool freezeGravity;
     public float2 min;
     public float2 max;
 }
 
 public struct TC_CanClimbLadder : IComponentData {}
+
+public struct C_LadderMovement : IComponentData
+{
+    public float speed;
+}
