@@ -4,9 +4,8 @@ using Unity.Entities;
 using Unity.Jobs;
 using UnityEngine;
 
-public class MachineCreationCooldownSystem : JobComponentSystem
+public class MachineAnimationReadyPickSystem : JobComponentSystem
 {
-    
     private BeginSimulationEntityCommandBufferSystem m_EntityCommandBuffer;
     protected override void OnCreate()
     {
@@ -19,18 +18,16 @@ public class MachineCreationCooldownSystem : JobComponentSystem
 
         JobHandle handle = Entities
             .WithNone<TC_CooldownRunning>()
-            .WithAll<TC_CooldownCompleted, TC_CreationCooldown>()
+            .WithAll<TC_CooldownCompleted, C_MachineComponentData>()
             .ForEach(
                 (Entity entity, int entityInQueryIndex) =>
                 {
-                    CommandBuffer.RemoveComponent<TC_CreationCooldown>(entityInQueryIndex, entity);
-                    CommandBuffer.RemoveComponent<TC_CooldownCompleted>(entityInQueryIndex, entity);
                     CommandBuffer.AddComponent<PlayMonoAnimation_C>(entityInQueryIndex, entity);
                     CommandBuffer.SetComponent(entityInQueryIndex, entity, new PlayMonoAnimation_C
                     {
                         id = UnityEngine.Animator.StringToHash("Caixa@Closed")
                     });
-                    
+
                 })
             .WithoutBurst()
             .Schedule(inputDeps);

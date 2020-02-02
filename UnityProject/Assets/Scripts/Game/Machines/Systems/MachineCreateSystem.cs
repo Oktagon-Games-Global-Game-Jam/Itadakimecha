@@ -56,10 +56,16 @@ public class MachineCreateSystem : JobComponentSystem
                 });
                 CommandBuffer.AddComponent<TC_CreationCooldown>(entityInQueryIndex, entity);
                 CommandBuffer.AddComponent<TC_CooldownRunning>(entityInQueryIndex, entity);
+                CommandBuffer.AddComponent<PlayMonoAnimation_C>(entityInQueryIndex, entity);
+                CommandBuffer.SetComponent(entityInQueryIndex, entity, new PlayMonoAnimation_C
+                {
+                    id = UnityEngine.Animator.StringToHash("Caixa@Open")
+                });
                 CommandBuffer.RemoveComponent<TC_Interact>(entityInQueryIndex, entity);
                 
 
             })
+            .WithoutBurst()
             .Schedule(inputDeps);
         
         handle.Complete();
