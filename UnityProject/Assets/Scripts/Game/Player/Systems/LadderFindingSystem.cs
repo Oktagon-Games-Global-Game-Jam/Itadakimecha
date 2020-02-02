@@ -20,8 +20,7 @@ public class LadderFindingSystem : JobComponentSystem
             All = new ComponentType[] { typeof(C_LadderComponentData) }
         });
         
-        m_EntityCommandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        
+        m_EntityCommandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();        
     }
 
     protected override JobHandle OnUpdate(JobHandle inputDeps)
@@ -30,14 +29,18 @@ public class LadderFindingSystem : JobComponentSystem
         var commandBuffer = m_EntityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
         //get all players
-        var jobHandle = Entities.WithNone<TC_IsInLadderArea>().ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in TC_CanClimbLadder climber) =>
+        var jobHandle = Entities.WithNone<C_IsInLadderArea>().ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in TC_CanClimbLadder climber) =>
         {
             //check each ladder
             for (int i = 0; i < ladders.Length; i++)
             {
                 if (IsInsideLadder(translation.Value, ladders[i]))
                 {
-                    commandBuffer.AddComponent<TC_IsInLadderArea>(entityInQueryIndex, entity);
+                    commandBuffer.AddComponent(entityInQueryIndex, entity, new C_IsInLadderArea
+                    {
+                        min = ladders[i].min,
+                        max = ladders[i].max
+                    });
                     break;
                 }
             }
