@@ -41,6 +41,7 @@ public class LadderFindingSystem : JobComponentSystem
         }.Schedule(m_StepPhysicsWorldSystem.Simulation,
             ref m_BuildPhysicsWorldSystem.PhysicsWorld, inputDeps);
         
+        
         m_EntityCommandBuffer.AddJobHandleForProducer(handle);
         return handle;
     }

@@ -18,6 +18,7 @@ public class CooldownSystem : JobComponentSystem
         {
             ComponentType.Exclude<TC_CooldownCompleted>(),
             ComponentType.ReadWrite<C_CooldownComponent>(), 
+            ComponentType.ReadWrite<TC_CooldownRunning>(),
         });
 
         m_EndSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
@@ -59,18 +60,22 @@ public class CooldownSystem : JobComponentSystem
             
             for (int i = 0; i < chunk.Count; i++)
             {
-
-                if (cooldownComponents[i].DeltaTime >= cooldownComponents[i].Cooldown)
-                {
-                    CommandBuffer.AddComponent<TC_CooldownCompleted>(chunkIndex, Entities[chunkIndex + i]);
-                }
+                if (cooldownComponents[i].Cooldown == 0) {}
                 else
                 {
-                    cooldownComponents[i] = new C_CooldownComponent
+                    if (cooldownComponents[i].DeltaTime >= cooldownComponents[i].Cooldown)
                     {
-                        Cooldown = cooldownComponents[i].Cooldown,
-                        DeltaTime = cooldownComponents[i].DeltaTime + ActualDeltaTime
-                    };
+                        CommandBuffer.AddComponent<TC_CooldownCompleted>(chunkIndex, Entities[chunkIndex + i]);
+                        CommandBuffer.RemoveComponent<TC_CooldownRunning>(chunkIndex, Entities[chunkIndex + i]);
+                    }
+                    else
+                    {
+                        cooldownComponents[i] = new C_CooldownComponent
+                        {
+                            Cooldown = cooldownComponents[i].Cooldown,
+                            DeltaTime = cooldownComponents[i].DeltaTime + ActualDeltaTime
+                        };
+                    }
                 }
             }
         }

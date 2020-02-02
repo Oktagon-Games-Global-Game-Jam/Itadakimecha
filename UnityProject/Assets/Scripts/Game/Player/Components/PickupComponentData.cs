@@ -12,7 +12,7 @@ public struct C_PickInfo : IComponentData
 }
 public struct TC_Pickable : IComponentData {}
 
-public struct TC_PickHoldAction : IComponentData {}
+public struct TC_PerformingAction : IComponentData {}
 
 public struct TC_InHold : IComponentData {}
 
@@ -27,4 +27,4 @@ public struct C_HoldComponentData : IComponentData
     public Entity Item;
 }
 
-public struct TC_Dropping : IComponentData {}
+public struct TC_CooldownAction : IComponentData {}

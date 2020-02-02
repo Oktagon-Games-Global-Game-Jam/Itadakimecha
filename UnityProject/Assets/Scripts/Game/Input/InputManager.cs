@@ -61,7 +61,7 @@ public class S_PickupInput : ComponentSystem
         m_EntityQuery = GetEntityQuery(new EntityQueryDesc
         {
             All = new ComponentType[] { ComponentType.ReadOnly<PlayerInput_C>(), ComponentType.ReadOnly<TC_CanPick>() },
-            None = new ComponentType[] { typeof(TC_Dropping) }
+            None = new ComponentType[] { typeof(TC_CooldownAction) }
         });
     }
 
@@ -74,7 +74,7 @@ public class S_PickupInput : ComponentSystem
         {
             if (Input.GetButton($"Action_{playerInput[i].inputId}"))
             {
-                EntityManager.AddComponent<TC_PickHoldAction>(entities[i]);
+                EntityManager.AddComponent<TC_PerformingAction>(entities[i]);
             }
         }
 
