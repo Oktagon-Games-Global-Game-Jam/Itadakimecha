@@ -28,7 +28,7 @@ public class MachineCreationCooldownSystem : JobComponentSystem
                     CommandBuffer.AddComponent<PlayMonoAnimation_C>(entityInQueryIndex, entity);
                     CommandBuffer.SetComponent(entityInQueryIndex, entity, new PlayMonoAnimation_C
                     {
-                        id = UnityEngine.Animator.StringToHash("Caixa@Closed")
+                        id = UnityEngine.Animator.StringToHash("Caixa@Open")
                     });
                     
                 })

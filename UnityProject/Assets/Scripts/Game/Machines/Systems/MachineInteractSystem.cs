@@ -51,7 +51,7 @@ public class MachineInteractSystem : JobComponentSystem
                         commandBuffer.AddComponent<PlayMonoAnimation_C>(entityInQueryIndex, entity);
                         commandBuffer.SetComponent(entityInQueryIndex, entity, new PlayMonoAnimation_C
                         {
-                            id = UnityEngine.Animator.StringToHash("Caixa@Open") 
+                            id = UnityEngine.Animator.StringToHash("Caixa@Closed") 
                         });
                     }
                 }
