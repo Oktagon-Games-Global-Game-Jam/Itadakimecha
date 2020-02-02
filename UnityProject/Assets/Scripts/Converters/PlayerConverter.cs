@@ -28,10 +28,10 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
             inputId = PlayerIndex
         });
         
-        dstManager.AddComponentData(entity, new JumpComponentData
-        {
-            jumpForce = JumpForce
-        });
+        // dstManager.AddComponentData(entity, new JumpComponentData
+        // {
+        //     jumpForce = JumpForce
+        // });
         
         dstManager.AddComponentData(entity, new MovementComponentData
         {
