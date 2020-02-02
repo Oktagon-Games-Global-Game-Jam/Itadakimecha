@@ -9,9 +9,7 @@ public class OpeningAnimation : MonoBehaviour
 
     public void SetMechaInPlace()
     {
-        if (transform.localPosition.x > 30)
-        {
-            mecha.transform.Translate(Time.deltaTime * -value, 0, 0);
-        }
+        mecha.SetActive(true);
     }
+
 }
