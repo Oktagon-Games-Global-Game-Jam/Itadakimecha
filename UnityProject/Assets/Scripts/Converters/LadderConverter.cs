@@ -12,8 +12,8 @@ public class LadderConverter : MonoBehaviour, IConvertGameObjectToEntity
 
         dstManager.AddComponentData(entity, new C_LadderComponentData
         {
-            x = new float2(collider.bounds.min.x, collider.bounds.max.x),
-            y = new float2(collider.bounds.min.y, collider.bounds.max.y)
+            min = new float2(collider.bounds.min.x, collider.bounds.min.y),
+            max = new float2(collider.bounds.max.x, collider.bounds.max.y)
         });
 
         Destroy(collider);

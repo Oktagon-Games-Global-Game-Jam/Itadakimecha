@@ -21,6 +21,7 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponent<TC_InitializeFreezeAxes>(entity);
         dstManager.AddComponent<TC_CanPick>(entity);
         dstManager.AddComponent<C_CooldownComponent>(entity);
+        dstManager.AddComponent<TC_CanClimbLadder>(entity);
 
         dstManager.AddComponentData(entity, new PlayerInput_C
         {

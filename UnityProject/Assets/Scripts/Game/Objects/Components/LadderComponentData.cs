@@ -6,8 +6,10 @@ using Unity.Mathematics;
 
 public struct C_LadderComponentData : IComponentData
 {
-    public float2 x;
-    public float2 y;
+    public float2 min;
+    public float2 max;
 }
 
 public struct TC_IsInLadderArea : IComponentData {}
+
+public struct TC_CanClimbLadder : IComponentData {}

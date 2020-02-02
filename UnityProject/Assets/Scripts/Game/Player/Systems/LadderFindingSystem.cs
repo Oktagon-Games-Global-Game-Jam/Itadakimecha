@@ -3,29 +3,21 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
-using Unity.Physics;
-using Unity.Physics.Systems;
+using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
-[UpdateAfter(typeof(EndFramePhysicsSystem))]
 public class LadderFindingSystem : JobComponentSystem
 {
-    BuildPhysicsWorld m_BuildPhysicsWorldSystem;
-    StepPhysicsWorld m_StepPhysicsWorldSystem;
-
     private EndSimulationEntityCommandBufferSystem m_EntityCommandBuffer;
     
-    EntityQuery _entityQuery;
+    EntityQuery m_LadderQuery;
     
     protected override void OnCreate()
-    {
-        base.OnCreate();
-        m_BuildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
-        m_StepPhysicsWorldSystem = World.GetOrCreateSystem<StepPhysicsWorld>();
-        
-        _entityQuery = GetEntityQuery(new EntityQueryDesc
+    {        
+        m_LadderQuery = GetEntityQuery(new EntityQueryDesc
         {
-            All = new ComponentType[] { typeof(C_LadderComponentData), }
+            All = new ComponentType[] { typeof(C_LadderComponentData) }
         });
         
         m_EntityCommandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
@@ -34,31 +26,36 @@ public class LadderFindingSystem : JobComponentSystem
 
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
-        JobHandle handle = new LadderTrigger
-        {
-            ladders = GetComponentDataFromEntity<C_LadderComponentData>(),
-            CommandBuffer = m_EntityCommandBuffer.CreateCommandBuffer(),
-        }.Schedule(m_StepPhysicsWorldSystem.Simulation,
-            ref m_BuildPhysicsWorldSystem.PhysicsWorld, inputDeps);
-        
-        m_EntityCommandBuffer.AddJobHandleForProducer(handle);
-        return handle;
-    }
-    
-    public struct LadderTrigger : ITriggerEventsJob
-    {
-        [ReadOnly] public ComponentDataFromEntity<C_LadderComponentData> ladders;
-        public EntityCommandBuffer CommandBuffer;
-        
-        public void Execute(TriggerEvent triggerEvent)
-        {
-            Entity other = triggerEvent.Entities.EntityA;
-            Entity ladder = triggerEvent.Entities.EntityB;
+        var ladders = m_LadderQuery.ToComponentDataArray<C_LadderComponentData>(Allocator.TempJob);
+        var commandBuffer = m_EntityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
-            if (ladders.HasComponent(ladder))
+        //get all players
+        var jobHandle = Entities.WithNone<TC_IsInLadderArea>().ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in TC_CanClimbLadder climber) =>
+        {
+            //check each ladder
+            for (int i = 0; i < ladders.Length; i++)
             {
-                CommandBuffer.AddComponent<TC_IsInLadderArea>(other);
+                if (IsInsideLadder(translation.Value, ladders[i]))
+                {
+                    commandBuffer.AddComponent<TC_IsInLadderArea>(entityInQueryIndex, entity);
+                    break;
+                }
             }
-        }
+        }).Schedule(inputDeps);
+
+        jobHandle.Complete();
+
+        ladders.Dispose();
+
+        m_EntityCommandBuffer.AddJobHandleForProducer(inputDeps);
+
+        return inputDeps;
+    }
+
+    private static bool IsInsideLadder(in float3 position, in C_LadderComponentData ladder)
+    {
+        return
+            (position.x > ladder.min.x && position.x < ladder.max.x) &&
+            (position.y > ladder.min.y && position.y < ladder.max.y);
     }
 }
