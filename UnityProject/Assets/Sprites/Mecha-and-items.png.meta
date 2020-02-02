@@ -1,12 +1,51 @@
 fileFormatVersion: 2
-guid: 2ed0f659746e2984eb68e274401725ee
+guid: 99509ad92a7c43a4c89aa380f86478f3
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -8114440469129091358
+    second: Mecha-and-items_0
+  - first:
+      213: 1969448490940225745
+    second: Mecha-and-items_1
+  - first:
+      213: 9027408793705861449
+    second: Mecha-and-items_2
+  - first:
+      213: 6095332668102802731
+    second: Mecha-and-items_3
+  - first:
+      213: -3055369897684837403
+    second: Mecha-and-items_4
+  - first:
+      213: -956408970140037415
+    second: Mecha-and-items_5
+  - first:
+      213: 7974234317516868841
+    second: Mecha-and-items_6
+  - first:
+      213: 7347331259454718673
+    second: Mecha-and-items_7
+  - first:
+      213: 8600326094939676580
+    second: Mecha-and-items_8
+  - first:
+      213: 1476710805039962953
+    second: Mecha-and-items_9
+  - first:
+      213: -217156738606282469
+    second: Mecha-and-items_10
+  - first:
+      213: 5666688413592394101
+    second: Mecha-and-items_11
+  - first:
+      213: 1883053343701873956
+    second: Mecha-and-items_12
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -34,13 +73,13 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -100
-    wrapU: -1
-    wrapV: -1
+    wrapU: 1
+    wrapV: 1
     wrapW: -1
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,9 +88,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
@@ -70,13 +109,310 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Mecha-and-items_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 559
+        width: 201
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec344ea2b2b9a9849a1b5abcae0d2705
+      internalID: -8114440469129091358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_1
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 557
+        width: 186
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c8c371c38b9144c894f610b3d44b85
+      internalID: 1969448490940225745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_2
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 521
+        width: 252
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8fd8872de3f345449557caa3c8bd7a8
+      internalID: 9027408793705861449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_3
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 118
+        width: 314
+        height: 633
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ced115c0d490347438d082d4fafb90c4
+      internalID: 6095332668102802731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 114
+        width: 312
+        height: 634
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e44067ad95aab4848989db254ac815cd
+      internalID: -3055369897684837403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_5
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 223
+        width: 196
+        height: 520
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84dbfe210e5771940baf3b297b7a0073
+      internalID: -956408970140037415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_6
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 614
+        width: 314
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1fbc9dae3e86304aa7490eb4ca64a01
+      internalID: 7974234317516868841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_7
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 68
+        width: 209
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 263414d4fa06da94189bd3f7eb5c912b
+      internalID: 7347331259454718673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_8
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 54
+        width: 275
+        height: 432
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0755b8ef120e5f47b5f321d98a6a191
+      internalID: 8600326094939676580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_9
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 422
+        width: 314
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bb1b6562a0650643906be022890fe3f
+      internalID: 1476710805039962953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_10
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 223
+        width: 232
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4b1b9078c1eeb44ca1379d7307cec93
+      internalID: -217156738606282469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_11
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 6
+        width: 190
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1c19f26b5c0d744fb5701e8261507ab
+      internalID: 5666688413592394101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mecha-and-items_12
+      rect:
+        serializedVersion: 2
+        x: 1653
+        y: 1
+        width: 209
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da7f5937287ea1241b008b8c60b0c6cc
+      internalID: 1883053343701873956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 526d567fb39effe48aaba527ac0945d2
     internalID: 0
     vertices: []
     indices: 
