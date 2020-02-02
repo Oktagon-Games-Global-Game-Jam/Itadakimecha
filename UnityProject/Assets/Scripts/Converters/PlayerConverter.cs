@@ -16,7 +16,6 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
     
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponent<TC_CanMove>(entity);
         dstManager.AddComponent<DirectionData>(entity);
 
         dstManager.AddComponent<TC_InitializeFreezeAxes>(entity);
