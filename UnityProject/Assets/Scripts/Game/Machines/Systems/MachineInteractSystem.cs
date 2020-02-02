@@ -38,8 +38,8 @@ public class MachineInteractSystem : JobComponentSystem
                         commandBuffer.AddComponent<MC_ChangeResouceData>(entityInQueryIndex, resourceEntities[0]);
                         commandBuffer.SetComponent(entityInQueryIndex, resourceEntities[0], new MC_ChangeResouceData
                         {
-                            DeltaCopper = data.CopperQnty,
-                            DeltaIron = data.IronQnty,
+                            DeltaCopper = -data.CopperQnty,
+                            DeltaIron = -data.IronQnty,
                         });
                         
                         commandBuffer.SetComponent(entityInQueryIndex, entity, new C_CooldownComponent()
