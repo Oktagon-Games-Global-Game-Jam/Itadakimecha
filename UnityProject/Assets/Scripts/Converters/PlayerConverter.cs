@@ -21,11 +21,9 @@ public class PlayerConverter : MonoBehaviour, IConvertGameObjectToEntity
 
         dstManager.AddComponent<TC_InitializeFreezeAxes>(entity);
         
-        dstManager.AddComponentData(entity, new C_PlayerInput
+        dstManager.AddComponentData(entity, new PlayerInput_C
         {
-            action = PlayerIndex,
-            horizontal = PlayerIndex,
-            jump = PlayerIndex
+            inputId = 0
         });
         
         dstManager.AddComponentData(entity, new JumpComponentData

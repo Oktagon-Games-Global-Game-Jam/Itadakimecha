@@ -17,18 +17,18 @@ public class S_MovementInput : ComponentSystem
     {
         m_EntityQuery = GetEntityQuery(new EntityQueryDesc
         {
-            All = new ComponentType[] { ComponentType.ReadOnly<C_PlayerInput>(), typeof(TC_CanMove) },
+            All = new ComponentType[] { ComponentType.ReadOnly<PlayerInput_C>(), typeof(TC_CanMove) },
         });
     }
 
     protected override void OnUpdate()
     {
         var entities = m_EntityQuery.ToEntityArray(Allocator.TempJob);
-        var playerInput = m_EntityQuery.ToComponentDataArray<C_PlayerInput>(Allocator.TempJob);
+        var playerInput = m_EntityQuery.ToComponentDataArray<PlayerInput_C>(Allocator.TempJob);
 
         for (int i = 0; i < playerInput.Length; i++)
         {
-            float horizontal = Input.GetAxis($"Horizontal_{playerInput[i].horizontal}");
+            float horizontal = Input.GetAxis($"Horizontal_{playerInput[i].inputId}");
 
 
             EntityManager.AddComponentData<TC_MovingComponentData>(entities[i], new TC_MovingComponentData
@@ -60,7 +60,7 @@ public class S_PickupInput : ComponentSystem
     {
         m_EntityQuery = GetEntityQuery(new EntityQueryDesc
         {
-            All = new ComponentType[] { ComponentType.ReadOnly<C_PlayerInput>(), ComponentType.ReadOnly<TC_CanPick>() },
+            All = new ComponentType[] { ComponentType.ReadOnly<PlayerInput_C>(), ComponentType.ReadOnly<TC_CanPick>() },
             None = new ComponentType[] { typeof(TC_Dropping) }
         });
     }
@@ -68,11 +68,11 @@ public class S_PickupInput : ComponentSystem
     protected override void OnUpdate()
     {
         var entities = m_EntityQuery.ToEntityArray(Allocator.TempJob);
-        var playerInput = m_EntityQuery.ToComponentDataArray<C_PlayerInput>(Allocator.TempJob);
+        var playerInput = m_EntityQuery.ToComponentDataArray<PlayerInput_C>(Allocator.TempJob);
 
         for (int i = 0; i < playerInput.Length; i++)
         {
-            if (Input.GetButton($"Action_{playerInput[i].action}"))
+            if (Input.GetButton($"Action_{playerInput[i].inputId}"))
             {
                 EntityManager.AddComponent<TC_PickHoldAction>(entities[i]);
             }

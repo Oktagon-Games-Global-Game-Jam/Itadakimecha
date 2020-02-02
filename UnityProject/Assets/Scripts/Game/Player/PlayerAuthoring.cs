@@ -14,7 +14,7 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponent(entity, typeof(C_CanPick));
+        dstManager.AddComponent(entity, typeof(TC_CanPick));
         dstManager.AddComponent(entity, typeof(DirectionData));
 
         dstManager.AddComponentData(entity, new PlayerInput_C
